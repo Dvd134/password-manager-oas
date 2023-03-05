@@ -35,4 +35,4 @@ post:
       $ref: "../components/responses/500.yaml"
 
   externalDocs:
-    url: 'https://mermaid.live/?source=https://raw.githubusercontent.com/Dvd134/password-manager-oas/topics/dde-implement-auth-endpoint/sequencediagrams/auth.md'
+    url: 'https://mermaid.live/?source=https://raw.githubusercontent.com/Dvd134/password-manager-oas/main/sequencediagrams/auth.md'
