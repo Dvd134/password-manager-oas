@@ -8,6 +8,5 @@ content:
           properties:
             data:
               $ref: "../entities/Token.yaml"
-    examples:
-      DoAuthExample:
-        $ref: "../examples/responses/DoAuthResponseExample.yaml"
+    example:
+      $ref: "../examples/responses/DoAuthResponseExample.yaml"

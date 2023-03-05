@@ -5,18 +5,20 @@ post:
     - authentication
   description: |
     Authenticate the client based on its client-id and client-secret credentials.
+    
     Generates a Bearer token that proves user`s identity for further requests.
 
-    Responses
+    Responses:
 
-    HTTP Status | Response Type | Description
-    200 | OK | Request was successful
-    401 | Unauthorized | Invalid client credentials
-    401 | Unauthorized | Missing or invalid access token
-    401 | Unauthorized | Expired access token
-    401 | Unauthorized | Revoked access token
-    429 | Too Many Requests | Request was rejected due to rate limitation
-    500 | Internal Server Error | Server error
+    | HTTP Status | Response Type         | Description                                 |
+    |-------------|-----------------------|---------------------------------------------|
+    | 200         | OK                    | Request was successful                      |
+    | 401         | Unauthorized          | Invalid client credentials                  |
+    | 401         | Unauthorized          | Missing or invalid access token             |
+    | 401         | Unauthorized          | Expired access token                        |
+    | 401         | Unauthorized          | Revoked access token                        |
+    | 429         | Too Many Requests     | Request was rejected due to rate limitation |
+    | 500         | Internal Server Error | Server error                                |
   
   parameters:
     # Headers

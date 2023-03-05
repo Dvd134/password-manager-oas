@@ -5,31 +5,35 @@ content:
       $ref: "./MetaResponse.yaml"
     examples:
       InvalidClientCredentials:
-        meta:
-          status: failed
-          messages:
-          - code: Unauthorized
-            text: Invalid client credentials
-            level: error
+        value: 
+          meta:
+            status: failed
+            messages:
+            - code: Unauthorized
+              text: Invalid client credentials
+              level: error
       MissingOrInvalidAccessToken:
-        meta:
-          status: failed
-          messages:
-          - code: Unauthorized
-            text: Missing or invalid access token
-            level: error
+        value:
+          meta:
+            status: failed
+            messages:
+            - code: Unauthorized
+              text: Missing or invalid access token
+              level: error
       ExpiredAccessToken:
-        meta:
-          status: failed
-          messages:
-          - code: Unauthorized
-            text: Expired access token
-            level: error
+        value:
+          meta:
+            status: failed
+            messages:
+            - code: Unauthorized
+              text: Expired access token
+              level: error
       RevokedAccessToken:
-        meta:
-          status: failed
-          messages:
-          - code: Unauthorized
-            text: Revoked access token
-            level: error
+        value:
+          meta:
+            status: failed
+            messages:
+            - code: Unauthorized
+              text: Revoked access token
+              level: error
             

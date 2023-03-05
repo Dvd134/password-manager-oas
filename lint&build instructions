@@ -1,2 +1,2 @@
-openapi lint openapi\openapi.yaml
-openapi bundle --output _build\dist.yaml --ext yaml openapi\openapi.yaml
+openapi lint openapi/openapi.yaml
+openapi bundle --output _build/dist.yaml --ext yaml openapi/openapi.yaml
