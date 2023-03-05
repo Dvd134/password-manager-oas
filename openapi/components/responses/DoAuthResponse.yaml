@@ -1,0 +1,13 @@
+description: "OK"
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: "./MetaResponse.yaml"
+        - type: object
+          properties:
+            data:
+              $ref: "../entities/Token.yaml"
+    examples:
+      DoAuthExample:
+        $ref: "../examples/responses/DoAuthResponseExample.yaml"

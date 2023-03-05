@@ -1,0 +1,20 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0
+  title: ISM Password Manager API
+  contact:
+    email: deacudavid21@stud.ase.ro
+    url: 'https://www.linkedin.com/in/david-theodor-deacu-517a951a7/'
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  description: >
+    This API is capable of fetching encrypted information from the server.
+tags:
+  - name: authentication
+    description: Operations about authentication
+servers:
+  - url: 'https://password-manager-api.us-e2.cloudhub.io/v1'
+paths:
+  '/actions/auth':
+    $ref: 'paths/actions@auth.yaml'

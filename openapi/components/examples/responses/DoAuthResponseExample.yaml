@@ -1,0 +1,6 @@
+value:
+  meta:
+    status: "succeeded"
+    messages: []
+  data:
+    token: "todo"
