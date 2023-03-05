@@ -1,0 +1,14 @@
+name: Authorization
+description: |
+  Represents the Basic authentication scheme which uses a Base64-encoded string of the client_id and client_secret as the value of the Authorization header. 
+  
+  The format of the Authorization header is:
+  
+  Authorization: Basic <base64-encoded-string>
+  
+  The <base64-encoded-string> value should be constructed by concatenating the client_id and client_secret values with a colon : separator, then Base64-encoding the resulting string.
+in: header
+required: true
+schema:
+  type: string
+  example: "Basic bXljbGllbnQ6bXlzZWNyZXQ="

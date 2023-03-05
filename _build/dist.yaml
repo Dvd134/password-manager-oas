@@ -1,0 +1,238 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0
+  title: ISM Password Manager API
+  contact:
+    email: deacudavid21@stud.ase.ro
+    url: https://www.linkedin.com/in/david-theodor-deacu-517a951a7/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: |
+    This API is capable of fetching encrypted information from the server.
+tags:
+  - name: authentication
+    description: Operations about authentication
+servers:
+  - url: https://password-manager-api.us-e2.cloudhub.io/v1
+paths:
+  /actions/auth:
+    post:
+      summary: Do authentication
+      operationId: DoAuth
+      tags:
+        - authentication
+      description: >
+        Authenticate the client based on its client-id and client-secret
+        credentials.
+
+
+        Generates a Bearer token that proves user`s identity for further
+        requests.
+
+
+        Responses:
+
+
+        | HTTP Status | Response Type         |
+        Description                                 |
+
+        |-------------|-----------------------|---------------------------------------------|
+
+        | 200         | OK                    | Request was
+        successful                      |
+
+        | 401         | Unauthorized          | Invalid client
+        credentials                  |
+
+        | 401         | Unauthorized          | Missing or invalid access
+        token             |
+
+        | 401         | Unauthorized          | Expired access
+        token                        |
+
+        | 401         | Unauthorized          | Revoked access
+        token                        |
+
+        | 429         | Too Many Requests     | Request was rejected due to rate
+        limitation |
+
+        | 500         | Internal Server Error | Server
+        error                                |
+      parameters:
+        - $ref: '#/components/parameters/BasicAuthorization'
+      responses:
+        '200':
+          $ref: '#/components/responses/DoAuthResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      externalDocs:
+        url: >-
+          https://mermaid.live/?source=https://raw.githubusercontent.com/Dvd134/password-manager-oas/topics/dde-implement-auth-endpoint/sequencediagrams/auth.md
+components:
+  parameters:
+    BasicAuthorization:
+      name: Authorization
+      description: >
+        Represents the Basic authentication scheme which uses a Base64-encoded
+        string of the client_id and client_secret as the value of the
+        Authorization header. 
+
+
+        The format of the Authorization header is:
+
+
+        Authorization: Basic <base64-encoded-string>
+
+
+        The <base64-encoded-string> value should be constructed by concatenating
+        the client_id and client_secret values with a colon : separator, then
+        Base64-encoding the resulting string.
+      in: header
+      required: true
+      schema:
+        type: string
+        example: Basic bXljbGllbnQ6bXlzZWNyZXQ=
+  schemas:
+    MetaResponse:
+      type: object
+      properties:
+        meta:
+          type: object
+          required:
+            - status
+          properties:
+            status:
+              description: |
+                Defines response status
+              type: string
+              enum:
+                - succeeded
+                - partially_succeeded
+                - failed
+              example: succeeded
+            messages:
+              type: array
+              items:
+                type: object
+                required:
+                  - code
+                  - level
+                properties:
+                  code:
+                    type: string
+                    description: |
+                      Unique technical code of the message
+                  text:
+                    type: string
+                    description: |
+                      Optional text to provide human readable information
+                  level:
+                    type: string
+                    description: |
+                      Severity level of a message
+                    enum:
+                      - info
+                      - warn
+                      - error
+    Token:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+          description: The Bearer token which is used to access the API.
+  responses:
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MetaResponse'
+          examples:
+            InvalidClientCredentials:
+              value:
+                meta:
+                  status: failed
+                  messages:
+                    - code: Unauthorized
+                      text: Invalid client credentials
+                      level: error
+            MissingOrInvalidAccessToken:
+              value:
+                meta:
+                  status: failed
+                  messages:
+                    - code: Unauthorized
+                      text: Missing or invalid access token
+                      level: error
+            ExpiredAccessToken:
+              value:
+                meta:
+                  status: failed
+                  messages:
+                    - code: Unauthorized
+                      text: Expired access token
+                      level: error
+            RevokedAccessToken:
+              value:
+                meta:
+                  status: failed
+                  messages:
+                    - code: Unauthorized
+                      text: Revoked access token
+                      level: error
+    '429':
+      description: Allowed number of requests exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MetaResponse'
+          example:
+            meta:
+              status: failed
+              messages:
+                - code: Too Many Requests
+                  text: Request was rejected due to rate limitation
+                  level: error
+    '500':
+      description: Something went wrong on server side
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MetaResponse'
+          example:
+            meta:
+              status: failed
+              messages:
+                - code: Internal Server Error
+                  text: Server error
+                  level: error
+    DoAuthResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/MetaResponse'
+              - type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Token'
+          example:
+            value:
+              meta:
+                status: succeeded
+                messages:
+                  - code: OK
+                    text: Request was successful
+                    level: info
+              data:
+                token: >-
+                  Bearer
+                  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c

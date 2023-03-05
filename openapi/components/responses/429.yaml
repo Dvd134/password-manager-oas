@@ -1,0 +1,13 @@
+description: Allowed number of requests exceeded
+content:
+  application/json:
+    schema:
+      $ref: "./MetaResponse.yaml"
+    example:
+      meta:
+        status: failed
+        messages:
+        - code: Too Many Requests
+          text: Request was rejected due to rate limitation
+          level: error
+          
