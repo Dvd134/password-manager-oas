@@ -4,7 +4,7 @@ description: |
   
   The format of the Authorization header is:
   
-  Authorization: Basic <base64-encoded-string>
+  Authorization: Basic [base64-encoded-string]
   
   The <base64-encoded-string> value should be constructed by concatenating the client_id and client_secret values with a colon : separator, then Base64-encoding the resulting string.
 in: header
