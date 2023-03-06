@@ -61,6 +61,13 @@ paths:
         error                                |
       parameters:
         - $ref: '#/components/parameters/BasicAuthorization'
+        - $ref: '#/components/parameters/ClientId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoAuthRequest'
       responses:
         '200':
           $ref: '#/components/responses/DoAuthResponse'
@@ -72,7 +79,7 @@ paths:
           $ref: '#/components/responses/500'
       externalDocs:
         url: >-
-          https://mermaid.live/?source=https://raw.githubusercontent.com/Dvd134/password-manager-oas/topics/dde-implement-auth-endpoint/sequencediagrams/auth.md
+          https://mermaid.live/?source=https://raw.githubusercontent.com/Dvd134/password-manager-oas/main/sequencediagrams/auth.md
 components:
   parameters:
     BasicAuthorization:
@@ -97,7 +104,28 @@ components:
       schema:
         type: string
         example: Basic bXljbGllbnQ6bXlzZWNyZXQ=
+    ClientId:
+      name: Client-Id
+      description: |
+        Represents the unique client identifier.
+      in: header
+      required: true
+      schema:
+        type: string
+        example: 3f02349a0a1a4e16abd64a2b5cc1fd07
   schemas:
+    DoAuthRequest:
+      type: object
+      required:
+        - passphrase
+      properties:
+        passphrase:
+          type: string
+          description: >-
+            Additional password that needs to be sent along with the client
+            credentials.
+      example:
+        passphrase: securePassw0rd123!
     MetaResponse:
       type: object
       properties:

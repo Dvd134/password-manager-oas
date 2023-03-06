@@ -1,0 +1,8 @@
+name: Client-Id
+description: |
+  Represents the unique client identifier.
+in: header
+required: true
+schema:
+  type: string
+  example: "3f02349a0a1a4e16abd64a2b5cc1fd07"
