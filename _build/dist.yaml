@@ -61,7 +61,6 @@ paths:
         error                                |
       parameters:
         - $ref: '#/components/parameters/BasicAuthorization'
-        - $ref: '#/components/parameters/ClientId'
       requestBody:
         required: true
         content:
@@ -93,7 +92,7 @@ components:
         The format of the Authorization header is:
 
 
-        Authorization: Basic <base64-encoded-string>
+        Authorization: Basic [base64-encoded-string]
 
 
         The <base64-encoded-string> value should be constructed by concatenating
@@ -104,15 +103,6 @@ components:
       schema:
         type: string
         example: Basic bXljbGllbnQ6bXlzZWNyZXQ=
-    ClientId:
-      name: Client-Id
-      description: |
-        Represents the unique client identifier.
-      in: header
-      required: true
-      schema:
-        type: string
-        example: 3f02349a0a1a4e16abd64a2b5cc1fd07
   schemas:
     DoAuthRequest:
       type: object
@@ -253,14 +243,13 @@ components:
                   data:
                     $ref: '#/components/schemas/Token'
           example:
-            value:
-              meta:
-                status: succeeded
-                messages:
-                  - code: OK
-                    text: Request was successful
-                    level: info
-              data:
-                token: >-
-                  Bearer
-                  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+            meta:
+              status: succeeded
+              messages:
+                - code: OK
+                  text: Request was successful
+                  level: info
+            data:
+              token: >-
+                Bearer
+                eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
