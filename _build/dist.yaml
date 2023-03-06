@@ -61,6 +61,12 @@ paths:
         error                                |
       parameters:
         - $ref: '#/components/parameters/BasicAuthorization'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoAuthRequest'
       responses:
         '200':
           $ref: '#/components/responses/DoAuthResponse'
@@ -72,7 +78,7 @@ paths:
           $ref: '#/components/responses/500'
       externalDocs:
         url: >-
-          https://mermaid.live/?source=https://raw.githubusercontent.com/Dvd134/password-manager-oas/topics/dde-implement-auth-endpoint/sequencediagrams/auth.md
+          https://mermaid.live/?source=https://raw.githubusercontent.com/Dvd134/password-manager-oas/main/sequencediagrams/auth.md
 components:
   parameters:
     BasicAuthorization:
@@ -86,7 +92,7 @@ components:
         The format of the Authorization header is:
 
 
-        Authorization: Basic <base64-encoded-string>
+        Authorization: Basic [base64-encoded-string]
 
 
         The <base64-encoded-string> value should be constructed by concatenating
@@ -98,6 +104,18 @@ components:
         type: string
         example: Basic bXljbGllbnQ6bXlzZWNyZXQ=
   schemas:
+    DoAuthRequest:
+      type: object
+      required:
+        - passphrase
+      properties:
+        passphrase:
+          type: string
+          description: >-
+            Additional password that needs to be sent along with the client
+            credentials.
+      example:
+        passphrase: securePassw0rd123!
     MetaResponse:
       type: object
       properties:
@@ -225,14 +243,13 @@ components:
                   data:
                     $ref: '#/components/schemas/Token'
           example:
-            value:
-              meta:
-                status: succeeded
-                messages:
-                  - code: OK
-                    text: Request was successful
-                    level: info
-              data:
-                token: >-
-                  Bearer
-                  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+            meta:
+              status: succeeded
+              messages:
+                - code: OK
+                  text: Request was successful
+                  level: info
+            data:
+              token: >-
+                Bearer
+                eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c

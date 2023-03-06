@@ -23,6 +23,13 @@ post:
   parameters:
     # Headers
     - $ref: "../components/parameters/headers/BasicAuthorization.yaml"
+
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/requests/DoAuthRequest.yaml
   
   responses:
     "200":
