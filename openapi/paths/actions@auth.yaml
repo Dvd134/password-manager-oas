@@ -25,7 +25,6 @@ post:
     - $ref: "../components/parameters/headers/BasicAuthorization.yaml"
 
   requestBody:
-    required: true
     content:
       application/json:
         schema:
