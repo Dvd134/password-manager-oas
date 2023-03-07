@@ -1,7 +1,15 @@
 type: object
 required: 
-  - token
+  - access_token
+  - token_type
+  - expires_in
 properties:
-  token:
+  access_token:
     type: string
     description: The Bearer token which is used to access the API.
+  token_type:
+    type: string
+    description: The token type.
+  expires_in:
+    type: integer
+    description: The token validity in seconds.

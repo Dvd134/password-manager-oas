@@ -142,11 +142,19 @@ components:
     Token:
       type: object
       required:
-        - token
+        - access_token
+        - token_type
+        - expires_in
       properties:
-        token:
+        access_token:
           type: string
           description: The Bearer token which is used to access the API.
+        token_type:
+          type: string
+          description: The token type.
+        expires_in:
+          type: integer
+          description: The token validity in seconds.
   responses:
     '401':
       description: Unauthorized
@@ -232,6 +240,7 @@ components:
                   text: Request was successful
                   level: info
             data:
-              token: >-
-                Bearer
+              access_token: >-
                 eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+              token_type: Bearer
+              expires_in: 86400
