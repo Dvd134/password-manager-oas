@@ -1,9 +1,0 @@
-type: object
-required:
-  - passphrase
-properties:
-  passphrase:
-    type: string
-    description: Additional password that needs to be sent along with the client credentials.
-example:
-  $ref: "../examples/requests/DoAuthRequestExample.yaml"
