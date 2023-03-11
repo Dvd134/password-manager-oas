@@ -135,7 +135,8 @@ paths:
         '500':
           $ref: '#/components/responses/500'
       externalDocs:
-        url: ''
+        url: >-
+          https://mermaid.live/?source=https://raw.githubusercontent.com/Dvd134/password-manager-oas/main/sequencediagrams/auth.md
 components:
   parameters:
     BasicAuthorization:
