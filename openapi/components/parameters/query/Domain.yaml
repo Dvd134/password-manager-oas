@@ -1,0 +1,7 @@
+name: domain
+description: filters the response on specific website domain.
+in: query
+required: false
+schema:
+  type: string
+example: "github.com"
