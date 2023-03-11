@@ -61,6 +61,11 @@ paths:
         error                                |
       parameters:
         - $ref: '#/components/parameters/BasicAuthorization'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoAuthRequest'
       responses:
         '200':
           $ref: '#/components/responses/DoAuthResponse'
@@ -98,6 +103,18 @@ components:
         type: string
         example: Basic bXljbGllbnQ6bXlzZWNyZXQ=
   schemas:
+    DoAuthRequest:
+      type: object
+      required:
+        - passphrase
+      properties:
+        passphrase:
+          type: string
+          description: >-
+            Additional password that needs to be sent along with the client
+            credentials.
+      example:
+        passphrase: securePassw0rd123!
     MetaResponse:
       type: object
       properties:
