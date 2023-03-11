@@ -13,8 +13,12 @@ info:
 tags:
   - name: authentication
     description: Operations about authentication
+  - name: accounts
+    description: Operations about accounts
 servers:
   - url: 'https://password-manager-api.us-e2.cloudhub.io/v1'
 paths:
   '/actions/auth':
     $ref: 'paths/actions@auth.yaml'
+  '/accounts':
+    $ref: 'paths/accounts.yaml'

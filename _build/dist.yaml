@@ -13,6 +13,8 @@ info:
 tags:
   - name: authentication
     description: Operations about authentication
+  - name: accounts
+    description: Operations about accounts
 servers:
   - url: https://password-manager-api.us-e2.cloudhub.io/v1
 paths:
@@ -78,6 +80,63 @@ paths:
       externalDocs:
         url: >-
           https://mermaid.live/?source=https://raw.githubusercontent.com/Dvd134/password-manager-oas/main/sequencediagrams/auth.md
+  /accounts:
+    get:
+      summary: Get accounts
+      operationId: GetAccounts
+      tags:
+        - accounts
+      description: >
+        Retrieves user accounts.
+
+
+        Results may be filtered based on a website domain.
+
+
+        Responses:
+
+
+        | HTTP Status | Response Type         |
+        Description                                 |
+
+        |-------------|-----------------------|---------------------------------------------|
+
+        | 200         | OK                    | Request was
+        successful                      |
+
+        | 401         | Unauthorized          | Invalid client
+        credentials                  |
+
+        | 401         | Unauthorized          | Missing or invalid access
+        token             |
+
+        | 401         | Unauthorized          | Expired access
+        token                        |
+
+        | 401         | Unauthorized          | Revoked access
+        token                        |
+
+        | 429         | Too Many Requests     | Request was rejected due to rate
+        limitation |
+
+        | 500         | Internal Server Error | Server
+        error                                |
+      parameters:
+        - $ref: '#/components/parameters/BearerAuthorization'
+        - $ref: '#/components/parameters/Domain'
+        - $ref: '#/components/parameters/ReturnFullResponse'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetAccountsResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+      externalDocs:
+        url: >-
+          https://mermaid.live/?source=https://raw.githubusercontent.com/Dvd134/password-manager-oas/main/sequencediagrams/auth.md
 components:
   parameters:
     BasicAuthorization:
@@ -102,6 +161,33 @@ components:
       schema:
         type: string
         example: Basic bXljbGllbnQ6bXlzZWNyZXQ=
+    BearerAuthorization:
+      name: Authorization
+      description: |
+        Represents the OAuth 2.0 authentication scheme 
+      in: header
+      required: true
+      schema:
+        type: string
+        example: >-
+          Bearer
+          eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+    Domain:
+      name: domain
+      description: filters the response on specific website domain.
+      in: query
+      required: false
+      schema:
+        type: string
+      example: github.com
+    ReturnFullResponse:
+      name: return_full_response
+      description: Fetch optional fields in response.
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: false
   schemas:
     DoAuthRequest:
       type: object
@@ -172,6 +258,29 @@ components:
         expires_in:
           type: integer
           description: The token validity in seconds.
+    Account:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        id:
+          type: number
+          description: Unique identifier.
+        username:
+          type: string
+          description: Login username.
+        password:
+          type: string
+          description: Login password.
+        tags:
+          type: array
+          items:
+            type: string
+          description: List of key words used to filter accounts.
+        domain:
+          type: string
+          description: Website linked to an account.
   responses:
     '401':
       description: Unauthorized
@@ -261,3 +370,39 @@ components:
                 eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
               token_type: Bearer
               expires_in: 86400
+    GetAccountsResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/MetaResponse'
+              - type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Account'
+          example:
+            meta:
+              status: succeeded
+              messages:
+                - code: OK
+                  text: Request was successful
+                  level: info
+            data:
+              - id: 1
+                username: username@email.com
+                password: securePassw0rd123!
+                tags:
+                  - github
+                  - personal
+                domain: github.com
+              - id: 2
+                username: testUsername@gmail.com
+                password: Passw0rd123!
+                tags:
+                  - gmail
+                  - mail
+                  - personal
+                domain: mail.google.com

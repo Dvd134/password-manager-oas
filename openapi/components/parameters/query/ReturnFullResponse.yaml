@@ -1,0 +1,7 @@
+name: return_full_response
+description: Fetch optional fields in response.
+in: query
+required: false
+schema:
+  type: boolean
+  default: false

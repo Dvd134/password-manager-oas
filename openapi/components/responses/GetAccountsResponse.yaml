@@ -1,0 +1,14 @@
+description: "OK"
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: "./MetaResponse.yaml"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "../entities/Account.yaml"
+    example:
+      $ref: "../examples/responses/GetAccountsResponseExample.yaml"
