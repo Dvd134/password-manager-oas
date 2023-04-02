@@ -39,3 +39,45 @@ get:
 
   externalDocs:
     url: 'https://mermaid.live/?source=https://raw.githubusercontent.com/Dvd134/password-manager-oas/main/sequencediagrams/auth.md'
+
+post:
+  summary: Do account
+  operationId: DoAccount
+  tags:
+    - accounts
+  description: |
+    Adds a new account entry in the user accounts list.
+
+    If user(client id) has no associated accounts file, a new one will be created.
+
+    Responses:
+
+    | HTTP Status | Response Type         | Description                                 |
+    |-------------|-----------------------|---------------------------------------------|
+    | 201         | Created               | New resource was created                    |
+    | 401         | Unauthorized          | Invalid client credentials                  |
+    | 401         | Unauthorized          | Missing or invalid access token             |
+    | 401         | Unauthorized          | Expired access token                        |
+    | 401         | Unauthorized          | Revoked access token                        |
+    | 429         | Too Many Requests     | Request was rejected due to rate limitation |
+    | 500         | Internal Server Error | Server error                                |
+
+  parameters:
+    # Headers
+    - $ref: "../components/parameters/headers/BearerAuthorization.yaml"
+
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/requests/DoAccountRequest.yaml
+
+  responses:
+    "201":
+      $ref: "../components/responses/201.yaml"
+    "401": 
+      $ref: "../components/responses/401.yaml"
+    "429": 
+      $ref: "../components/responses/429.yaml"
+    "500": 
+      $ref: "../components/responses/500.yaml"

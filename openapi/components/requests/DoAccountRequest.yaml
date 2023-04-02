@@ -1,0 +1,20 @@
+type: object
+required: 
+  - username
+  - password
+  - domain
+properties:
+  username:
+    type: string
+    description: Login username.
+  password:
+    type: string
+    description: Login password.
+  tags:
+    type: array
+    items: 
+      type: string
+    description: List of key words used to filter accounts.
+  domain:
+    type: string
+    description: Website linked to an account.

@@ -137,6 +137,63 @@ paths:
       externalDocs:
         url: >-
           https://mermaid.live/?source=https://raw.githubusercontent.com/Dvd134/password-manager-oas/main/sequencediagrams/auth.md
+    post:
+      summary: Do account
+      operationId: DoAccount
+      tags:
+        - accounts
+      description: >
+        Adds a new account entry in the user accounts list.
+
+
+        If user(client id) has no associated accounts file, a new one will be
+        created.
+
+
+        Responses:
+
+
+        | HTTP Status | Response Type         |
+        Description                                 |
+
+        |-------------|-----------------------|---------------------------------------------|
+
+        | 201         | Created               | New resource was
+        created                    |
+
+        | 401         | Unauthorized          | Invalid client
+        credentials                  |
+
+        | 401         | Unauthorized          | Missing or invalid access
+        token             |
+
+        | 401         | Unauthorized          | Expired access
+        token                        |
+
+        | 401         | Unauthorized          | Revoked access
+        token                        |
+
+        | 429         | Too Many Requests     | Request was rejected due to rate
+        limitation |
+
+        | 500         | Internal Server Error | Server
+        error                                |
+      parameters:
+        - $ref: '#/components/parameters/BearerAuthorization'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoAccountRequest'
+      responses:
+        '201':
+          $ref: '#/components/responses/201'
+        '401':
+          $ref: '#/components/responses/401'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
 components:
   parameters:
     BasicAuthorization:
@@ -281,7 +338,41 @@ components:
         domain:
           type: string
           description: Website linked to an account.
+    DoAccountRequest:
+      type: object
+      required:
+        - username
+        - password
+        - domain
+      properties:
+        username:
+          type: string
+          description: Login username.
+        password:
+          type: string
+          description: Login password.
+        tags:
+          type: array
+          items:
+            type: string
+          description: List of key words used to filter accounts.
+        domain:
+          type: string
+          description: Website linked to an account.
   responses:
+    '201':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MetaResponse'
+          example:
+            meta:
+              status: succeeded
+              messages:
+                - code: Created
+                  text: New resource was created
+                  level: info
     '401':
       description: Unauthorized
       content:
