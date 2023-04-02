@@ -1,0 +1,13 @@
+description: Unauthorized
+content:
+  application/json:
+    schema:
+      $ref: "./MetaResponse.yaml"
+    example:
+      meta:
+        status: succeeded
+        messages:
+        - code: Created
+          text: New resource was created
+          level: info
+            
