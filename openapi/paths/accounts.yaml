@@ -63,8 +63,8 @@ post:
     | 500         | Internal Server Error | Server error                                |
 
   parameters:
-      # Headers
-      - $ref: "../components/parameters/headers/BearerAuthorization.yaml"
+    # Headers
+    - $ref: "../components/parameters/headers/BearerAuthorization.yaml"
 
   requestBody:
     content:
