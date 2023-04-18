@@ -22,3 +22,5 @@ paths:
     $ref: 'paths/actions@auth.yaml'
   '/accounts':
     $ref: 'paths/accounts.yaml'
+  '/accounts/{identifier}':
+    $ref: 'paths/accounts@(identifier).yaml'

@@ -1,0 +1,36 @@
+parameters:
+- $ref: "../components/parameters/uri/identifier.yaml"
+
+delete:
+  summary: Delete account
+  operationId: DeleteAccount
+  tags: 
+    - accounts
+  description: |
+    Deletes user account.
+
+    Responses:
+
+    | HTTP Status | Response Type         | Description                                 |
+    |-------------|-----------------------|---------------------------------------------|
+    | 204         | No Content            | There is no content to send for this request|
+    | 401         | Unauthorized          | Invalid client credentials                  |
+    | 401         | Unauthorized          | Missing or invalid access token             |
+    | 401         | Unauthorized          | Expired access token                        |
+    | 401         | Unauthorized          | Revoked access token                        |
+    | 429         | Too Many Requests     | Request was rejected due to rate limitation |
+    | 500         | Internal Server Error | Server error                                |
+  
+  parameters:
+    # Headers
+    - $ref: "../components/parameters/headers/BearerAuthorization.yaml"
+  
+  responses:
+    "204":
+      $ref: "../components/responses/204.yaml"
+    "401": 
+      $ref: "../components/responses/401.yaml"
+    "429": 
+      $ref: "../components/responses/429.yaml"
+    "500": 
+      $ref: "../components/responses/500.yaml"
