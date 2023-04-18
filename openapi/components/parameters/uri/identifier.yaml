@@ -1,0 +1,8 @@
+name: identifier
+in: path
+description: Represets the id of the account
+required: true
+schema:
+  maxLength: 100
+  type: string
+  example: "123456"

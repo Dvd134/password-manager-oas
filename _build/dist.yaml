@@ -194,6 +194,57 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+  /accounts/{identifier}:
+    parameters:
+      - $ref: '#/components/parameters/identifier'
+    delete:
+      summary: Delete account
+      operationId: DeleteAccount
+      tags:
+        - accounts
+      description: >
+        Deletes user account.
+
+
+        Responses:
+
+
+        | HTTP Status | Response Type         |
+        Description                                 |
+
+        |-------------|-----------------------|---------------------------------------------|
+
+        | 204         | No Content            | There is no content to send for
+        this request|
+
+        | 401         | Unauthorized          | Invalid client
+        credentials                  |
+
+        | 401         | Unauthorized          | Missing or invalid access
+        token             |
+
+        | 401         | Unauthorized          | Expired access
+        token                        |
+
+        | 401         | Unauthorized          | Revoked access
+        token                        |
+
+        | 429         | Too Many Requests     | Request was rejected due to rate
+        limitation |
+
+        | 500         | Internal Server Error | Server
+        error                                |
+      parameters:
+        - $ref: '#/components/parameters/BearerAuthorization'
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '401':
+          $ref: '#/components/responses/401'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
 components:
   parameters:
     BasicAuthorization:
@@ -245,6 +296,15 @@ components:
       schema:
         type: boolean
         default: false
+    identifier:
+      name: identifier
+      in: path
+      description: Represets the id of the account
+      required: true
+      schema:
+        maxLength: 100
+        type: string
+        example: '123456'
   schemas:
     DoAuthRequest:
       type: object
@@ -372,6 +432,19 @@ components:
               messages:
                 - code: Created
                   text: New resource was created
+                  level: info
+    '204':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MetaResponse'
+          example:
+            meta:
+              status: succeeded
+              messages:
+                - code: No Content
+                  text: Account has been deleted
                   level: info
     '401':
       description: Unauthorized
