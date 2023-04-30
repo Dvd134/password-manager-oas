@@ -1,6 +1,46 @@
 parameters:
 - $ref: "../components/parameters/uri/identifier.yaml"
 
+put:
+  summary: Update account
+  operationId: UpdateAccount
+  tags: 
+    - accounts
+  description: |
+    Update user account.
+
+    Responses:
+
+    | HTTP Status | Response Type         | Description                                 |
+    |-------------|-----------------------|---------------------------------------------|
+    | 201         | Created               | New resource was created                    |
+    | 401         | Unauthorized          | Invalid client credentials                  |
+    | 401         | Unauthorized          | Missing or invalid access token             |
+    | 401         | Unauthorized          | Expired access token                        |
+    | 401         | Unauthorized          | Revoked access token                        |
+    | 429         | Too Many Requests     | Request was rejected due to rate limitation |
+    | 500         | Internal Server Error | Server error                                |
+  
+  parameters:
+    # Headers
+    - $ref: "../components/parameters/headers/BearerAuthorization.yaml"
+
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/requests/UpdateAccountRequest.yaml
+
+  responses:
+    "201":
+      $ref: "../components/responses/201.yaml"
+    "401": 
+      $ref: "../components/responses/401.yaml"
+    "429": 
+      $ref: "../components/responses/429.yaml"
+    "500": 
+      $ref: "../components/responses/500.yaml"
+
 delete:
   summary: Delete account
   operationId: DeleteAccount
