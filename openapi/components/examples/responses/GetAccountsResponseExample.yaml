@@ -6,7 +6,7 @@ meta:
     level: info 
 data:
   -
-    id: 1
+    id: "1"
     username: "username@email.com"
     password: "securePassw0rd123!"
     tags:
@@ -14,7 +14,7 @@ data:
       - "personal"
     domain: "github.com"
   -
-    id: 2
+    id: "2"
     username: "testUsername@gmail.com"
     password: "Passw0rd123!"
     tags:

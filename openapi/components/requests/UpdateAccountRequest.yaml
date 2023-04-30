@@ -1,12 +1,5 @@
 type: object
-required: 
-  - id
-  - username
-  - password
 properties:
-  id:
-    type: string
-    description: Unique identifier.
   username:
     type: string
     description: Login username.
